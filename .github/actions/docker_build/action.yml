@@ -18,6 +18,21 @@ runs:
     - name: Build Docker image
       shell: bash
       run: |
+
+        if [ -z "${{ inputs.path_dockerfile }}" ]; then
+            PATH_DOCKERFILE=$(date +%s)
+        else
+            PATH_DOCKERFILE="${{ inputs.path_dockerfile }}"
+        fi
+        echo "PATH_DOCKERFILE=$PATH_DOCKERFILE" >> $GITHUB_ENV
+
+        if [ -z "${{ inputs.image_name }}" ]; then
+            IMAGE_ENAME=$(date +%s)
+        else
+            IMAGE_ENAME="${{ inputs.image_name }}"
+        fi
+        echo "IMAGE_ENAME=$IMAGE_ENAME" >> $GITHUB_ENV
+
         if [ -z "${{ inputs.tag_name }}" ]; then
             TAG=$(date +%s)
         else
