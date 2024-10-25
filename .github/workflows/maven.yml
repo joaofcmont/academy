@@ -24,6 +24,8 @@ jobs:
       
       - name: Login and Push the image to Docker Hub
         uses: joaofcmont/academy/.github/actions/dockerHub@main
+        with:
+          path_dockerfile: "src/main/docker/Dockerfile.jvm"
 
 
 
