@@ -25,11 +25,19 @@ runs:
         username: ${{ inputs.dockerhub_username }}
         password: ${{ inputs.dockerhub_token }}
 
+    - name: Build Docker image
+      shell: bash
+      run: |
+        IMAGE_NAME="${{ inputs.image_name }}"
+        TIMESTAMP=$(date +%s)
+        SOURCE_IMAGE="${IMAGE_NAME}:${TIMESTAMP}"
+        docker build . --file "${{ inputs.path_dockerfile }}" --tag "$SOURCE_IMAGE"
+
     - name: Re-tag docker image
       shell: bash
       run: |
-        SOURCE_IMAGE="${{ inputs.image_name }}"
-        TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${SOURCE_IMAGE}:latest"
+        IMAGE_NAME="${{ inputs.image_name }}"
+        TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${IMAGE_NAME}:latest"
         docker tag "$SOURCE_IMAGE" "$TAGGED_IMAGE"
 
     - name: Push Docker image
