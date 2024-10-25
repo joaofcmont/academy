@@ -25,14 +25,20 @@ runs:
         username: ${{ inputs.dockerhub_username }}
         password: ${{ inputs.dockerhub_token }}
 
+    - name: Build Docker image
+      shell: bash
+      run: |
+        docker build . --file "${{ inputs.path_dockerfile }}" --tag "${{ inputs.image_name }}"
+
     - name: Re-tag docker image
       shell: bash
       run: |
-        docker tag "${{ inputs.docker_image }}" "${{ inputs.docker_image }}/${{ inputs.docker_image }}"
+        SOURCE_IMAGE="${{ inputs.image_name }}"
+        TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${SOURCE_IMAGE}:latest"
+        docker tag "$SOURCE_IMAGE" "$TAGGED_IMAGE"
 
     - name: Push Docker image
       shell: bash
       run: |
-        IMAGE_NAME=${{ inputs.image_name }}
-        TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${IMAGE_NAME}:latest"
+        TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${{ inputs.image_name }}:latest"
         docker push "$TAGGED_IMAGE"
