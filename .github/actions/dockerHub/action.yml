@@ -1,39 +1,41 @@
-name: ci
+name: Docker Hub Action
 
-on:
-  push:
-    branches: main
+description: A GitHub Action to build and push Docker images to Docker Hub.
 
-jobs:
-  login:
-    runs-on: ubuntu-latest
-    env:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }} 
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN  }}  
-      DOCKERFILE_PATH: 'src/main/docker/Dockerfile.jvm'  
-      IMAGE_NAME: 'academy'  
+inputs:
+  dockerhub_username:
+    description: 'Docker Hub username'
+    required: true
+  dockerhub_token:
+    description: 'Docker Hub access token'
+    required: true
+  path_dockerfile:
+    description: 'Path to the Dockerfile'
+    required: true
+  image_name:
+    description: 'Name of the Docker image'
+    required: true
 
-    steps:
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ env.DOCKERHUB_USERNAME }}
-          password: ${{ env.DOCKERHUB_TOKEN }}
+runs:
+  using: "composite"
+  steps:
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ inputs.dockerhub_username }}
+        password: ${{ inputs.dockerhub_token }}
 
-      - name: Create new Docker image
-        shell: bash  
-        run: docker build . --file ${{ env.dockerfile_path }} --tag academy:$(date +%s)
+    - name: Create new Docker image
+      run: docker build . --file ${{ inputs.path_dockerfile }} --tag academy:$(date +%s)
 
-      - name: Tag Docker image
-        run: |
-          IMAGE_NAME=${{ env.image_name }}
-          DOCKER_USERNAME=${{ env.DOCKERHUB_USERNAME }}
-          TAGGED_IMAGE="${DOCKER_USERNAME}/${IMAGE_NAME}:latest"
-          docker tag academy:$(date +%s) "$TAGGED_IMAGE"
+    - name: Tag Docker image
+      run: |
+        IMAGE_NAME=${{ inputs.image_name }}
+        TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${IMAGE_NAME}:latest"
+        docker tag academy:$(date +%s) "$TAGGED_IMAGE"
 
-      - name: Push Docker image
-        run: |
-          IMAGE_NAME=${{ env.image_name }}
-          DOCKER_USERNAME=${{ env.DOCKERHUB_USERNAME }}
-          TAGGED_IMAGE="${DOCKER_USERNAME}/${IMAGE_NAME}:latest"
-          docker push "$TAGGED_IMAGE"
+    - name: Push Docker image
+      run: |
+        IMAGE_NAME=${{ inputs.image_name }}
+        TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${IMAGE_NAME}:latest"
+        docker push "$TAGGED_IMAGE"
