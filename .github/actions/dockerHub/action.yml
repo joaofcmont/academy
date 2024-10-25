@@ -25,13 +25,10 @@ runs:
         username: ${{ inputs.dockerhub_username }}
         password: ${{ inputs.dockerhub_token }}
 
-    - name: Tag Docker image
+    - name: Re-tag docker image
       shell: bash
       run: |
-        IMAGE_NAME=myapp
-        TAGGED_IMAGE="${IMAGE_NAME}:latest"
-        docker tag academy:$(date +%s) "$TAGGED_IMAGE"
-
+        docker tag "${{ inputs.docker_image }}" "${{ inputs.docker_image }}/${{ inputs.docker_image }}"
 
     - name: Push Docker image
       shell: bash
