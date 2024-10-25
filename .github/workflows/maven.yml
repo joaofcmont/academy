@@ -26,11 +26,5 @@ jobs:
         uses: joaofcmont/academy/.github/actions/dockerHub@main
         with:
           path_dockerfile: "src/main/docker/Dockerfile.jvm"
-          secrets: 
-            dockerhub_username: ${{ joaofranciscomonteiro175 }} 
-            dockerhub_token: ${{ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII6+jkB7lHBzcdB29auXUL0kPo2s8HUDu/G5ijHDiOkH jfcmo98647@gmail.com }}   
-
-
-
-
-
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }} 
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }} 
