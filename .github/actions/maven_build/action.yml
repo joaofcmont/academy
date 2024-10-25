@@ -4,7 +4,7 @@ inputs:
   dockerfile_path:
     description: "Path to the Dockerfile"
     required: false
-    default: "src/main/docker/Dockerfile.jvm" # Update default path if needed
+    default: "src/main/docker/Dockerfile.jvm" 
 runs:
   using: composite
   steps:
@@ -16,10 +16,13 @@ runs:
         cache: maven
     
     - name: Build with Maven
+      shell: bash  
       run: mvn -B package -DskipTests --file pom.xml
     
     - name: Create new Docker image
+      shell: bash  
       run: docker build . --file ${{ inputs.dockerfile_path }} --tag academy:$(date +%s)
     
     - name: List Docker images
+      shell: bash 
       run: docker images
