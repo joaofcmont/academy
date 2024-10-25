@@ -22,5 +22,3 @@ jobs:
           image_name: "myapp"
           tag_name: ""  
 
-      - name: Output Docker image name
-        run: echo "Built Docker image: ${{ env.DOCKER_IMAGE_NAME }}"
