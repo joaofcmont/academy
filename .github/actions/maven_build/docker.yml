@@ -15,8 +15,10 @@ runs:
         distribution: 'temurin'
         cache: maven
     
-    - name: Build with Maven
+    - name: Create new Docker image
       shell: bash  
-      run: mvn -B package -DskipTests --file pom.xml
+      run: docker build . --file ${{ inputs.dockerfile_path }} --tag academy:$(date +%s)
     
-
+    - name: List Docker images
+      shell: bash 
+      run: docker images
