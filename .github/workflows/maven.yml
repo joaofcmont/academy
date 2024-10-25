@@ -11,15 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - uses: joaofcmont/academy/.github/actions/maven_build@main
-    - name: Build Docker image
-      uses: joaofcmont/academy/.github/actions/docker_build@main
-      with:
+      - uses: joaofcmont/academy/.github/actions/maven_build@main
+
+      - name: Build Docker image
+        uses: joaofcmont/academy/.github/actions/docker_build@main
+        with:
           path_dockerfile: "src/main/docker/Dockerfile.jvm"  
           image_name: "myapp"
           tag_name: ""  
 
-    - name: Output Docker image name
-      run: echo "Built Docker image: ${{ env.DOCKER_IMAGE_NAME }}"
+      - name: Output Docker image name
+        run: echo "Built Docker image: ${{ env.DOCKER_IMAGE_NAME }}"
