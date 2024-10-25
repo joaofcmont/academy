@@ -18,7 +18,6 @@ runs:
     - name: Build Docker image
       shell: bash
       run: |
-        # Determine the tag
         if [ -z "${{ inputs.tag_name }}" ]; then
             TAG=$(date +%s)
         else
