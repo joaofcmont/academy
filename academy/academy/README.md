@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# academy
-=======
 # code-with-quarkus
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
@@ -59,4 +56,3 @@ If you want to learn more about building native executables, please consult <htt
 ## Related Guides
 
 - JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
->>>>>>> 30afece (first commit)
