@@ -25,11 +25,6 @@ runs:
         username: ${{ inputs.dockerhub_username }}
         password: ${{ inputs.dockerhub_token }}
 
-    - name: Build Docker image
-      shell: bash
-      run: |
-        docker build . --file "${{ inputs.path_dockerfile }}" --tag "${{ inputs.image_name }}"
-
     - name: Re-tag docker image
       shell: bash
       run: |
