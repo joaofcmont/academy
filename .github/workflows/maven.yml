@@ -21,4 +21,3 @@ jobs:
           path_dockerfile: "src/main/docker/Dockerfile.jvm"  
           image_name: "myapp"
           tag_name: ""  
-
