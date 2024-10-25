@@ -1,2 +1,2 @@
-org\acme\GreetingResource.class
-org\acme\Person.class
+org/acme/GreetingResource.class
+org/acme/Person.class
