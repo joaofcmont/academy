@@ -8,8 +8,8 @@ jobs:
   login:
     runs-on: ubuntu-latest
     env:
-      DOCKERHUB_USERNAME: ${{ joaofranciscomonteiro175 }} 
-      DOCKERHUB_TOKEN: ${{ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII6+jkB7lHBzcdB29auXUL0kPo2s8HUDu/G5ijHDiOkH jfcmo98647@gmail.com }}  
+      DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }} 
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_USERNAME }}  
       DOCKERFILE_PATH: 'src/main/docker/Dockerfile.jvm'  
       IMAGE_NAME: 'academy'  
 
