@@ -8,8 +8,8 @@ jobs:
   login:
     runs-on: ubuntu-latest
     env:
-      DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }} 
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_USERNAME }}  
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }} 
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN  }}  
       DOCKERFILE_PATH: 'src/main/docker/Dockerfile.jvm'  
       IMAGE_NAME: 'academy'  
 
