@@ -12,6 +12,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Build with Maven
-      uses: joaofcmont/academy/.github/actions/maven_build@main
+
+    - uses: joaofcmont/academy/.github/actions/maven_build@main
