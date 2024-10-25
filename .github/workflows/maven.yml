@@ -20,7 +20,7 @@ jobs:
         with:
           path_dockerfile: "src/main/docker/Dockerfile.jvm"  
           image_name: "myapp"
-          tag_name: ""  
+          tag_name: "myapp"  
       
       - name: Login and Push the image to Docker Hub
         uses: joaofcmont/academy/.github/actions/dockerHub@main
