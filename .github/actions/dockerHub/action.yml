@@ -25,16 +25,15 @@ runs:
         username: ${{ inputs.dockerhub_username }}
         password: ${{ inputs.dockerhub_token }}
 
-    - name: Create new Docker image
-      run: docker build . --file ${{ inputs.path_dockerfile }} --tag academy:$(date +%s)
-
     - name: Tag Docker image
+      shell: bash
       run: |
         IMAGE_NAME=${{ inputs.image_name }}
         TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${IMAGE_NAME}:latest"
         docker tag academy:$(date +%s) "$TAGGED_IMAGE"
 
     - name: Push Docker image
+      shell: bash
       run: |
         IMAGE_NAME=${{ inputs.image_name }}
         TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${IMAGE_NAME}:latest"
