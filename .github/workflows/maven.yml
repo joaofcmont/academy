@@ -28,9 +28,5 @@ jobs:
         cache: maven
     
     - name: Build Docker Image
-      run: docker build . --file academy/src/main/docker/Dockerfile.jvm --tag academy:$(date +%s)
-
-
-    - name: Build DockerFile
-      run: docker build . --file ["academy\src\main\docker\Dockerfile.jvm"] --tag academy:$(date +%s)
+      run: docker build . --file Dockerfile.jvm --tag academy:$(date +%s)
 
