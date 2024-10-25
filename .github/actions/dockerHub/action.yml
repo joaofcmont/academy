@@ -29,11 +29,16 @@ runs:
       shell: bash
       run: |
         IMAGE_NAME="${{ inputs.image_name }}"
-        TAGGED_IMAGE="${{ inputs.dockerhub_username }}:${IMAGE_NAME}"
+        if [ -z "$IMAGE_NAME" ]; then
+          echo "Error: IMAGE_NAME is not set."
+          exit 1
+        fi
+        SOURCE_IMAGE="${IMAGE_NAME}:latest"  # Ensure the SOURCE_IMAGE is defined correctly
+        TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${IMAGE_NAME}:latest"
         docker tag "$SOURCE_IMAGE" "$TAGGED_IMAGE"
 
     - name: Push Docker image
       shell: bash
       run: |
-        TAGGED_IMAGE="${{ inputs.dockerhub_username }}:${{ inputs.image_name }}"
+        TAGGED_IMAGE="${{ inputs.dockerhub_username }}/${{ inputs.image_name }}:latest"
         docker push "$TAGGED_IMAGE"
