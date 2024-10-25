@@ -17,23 +17,23 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Create new Docker image
         shell: bash  
-        run: docker build . --file ${{ inputs.dockerfile_path }} --tag academy:$(date +%s)
+        run: docker build . --file ${{ env.dockerfile_path }} --tag academy:$(date +%s)
 
       - name: Tag Docker image
         run: |
-          IMAGE_NAME=${{ inputs.image_name }}
-          DOCKER_USERNAME=${{ vars.DOCKERHUB_USERNAME }}
+          IMAGE_NAME=${{ env.image_name }}
+          DOCKER_USERNAME=${{ env.DOCKERHUB_USERNAME }}
           TAGGED_IMAGE="${DOCKER_USERNAME}/${IMAGE_NAME}:latest"
           docker tag academy:$(date +%s) "$TAGGED_IMAGE"
 
       - name: Push Docker image
         run: |
-          IMAGE_NAME=${{ inputs.image_name }}
-          DOCKER_USERNAME=${{ vars.DOCKERHUB_USERNAME }}
+          IMAGE_NAME=${{ env.image_name }}
+          DOCKER_USERNAME=${{ env.DOCKERHUB_USERNAME }}
           TAGGED_IMAGE="${DOCKER_USERNAME}/${IMAGE_NAME}:latest"
           docker push "$TAGGED_IMAGE"
